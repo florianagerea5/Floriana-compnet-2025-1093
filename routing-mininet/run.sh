@@ -1,0 +1,1 @@
+sudo mn --custom ./net.py --topo simple_topo --test pingall

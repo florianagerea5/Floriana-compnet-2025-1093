@@ -6,16 +6,18 @@ from mininet.link import TCLink
 class SingleSwitchTopology(Topo):
   def build(self, n = 2):
     switch = self.addSwitch('s1')
-    for i in range(n):
-      host = self.addHost(f'h{i}')
-      self.addLink(host, switch)
+    for i in range(1, n + 1):
+      host = self.addHost('h{i}'.format(i = i))
+      self.addLink(switch, host)
 
-def main():
-  topo = SingleSwitchTopology()
-  net = Mininet(topo = topo, link=TCLink)
-  net.start()
-  CLI(net)
-  net.stop()
+topos = { 'simpletopo': SingleSwitchTopology }
 
-if __name__ == '__main__':
-  main()
+# def main():
+#   topo = SingleSwitchTopology()
+#   net = Mininet(topo = topo)
+#   net.start()
+#   CLI(net)
+#   net.stop()
+
+# if __name__ == '__main__':
+#   main()
