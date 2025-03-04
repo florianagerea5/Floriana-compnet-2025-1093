@@ -1,0 +1,176 @@
+# 🔄 Actualizare lista de pachete și upgrade
+sudo apt update && sudo apt upgrade -y
+
+# 📦 Instalare unelte de rețea esențiale
+sudo apt install -y net-tools iproute2 iputils-ping traceroute dnsutils curl wget nano
+
+# 🛠 Instalare firewall și instrumente de diagnosticare
+sudo apt install -y iptables tcpdump nmap
+
+# 🔧 Instalare netcat pentru testare porturi și conexiuni
+sudo apt install -y netcat-openbsd
+
+# 🏗 Instalare pachete pentru proxy (dacă ai nevoie de proxy)
+sudo apt install -y proxychains4
+
+# 🔄 Repornire WSL pentru aplicarea modificărilor
+wsl --shutdown
+
+
+
+# 📌 Verificare rețea
+
+# Afișează interfețele de rețea și adresele IP asignate
+ip a
+
+# Afișează tabela de rutare, adică prin ce gateway trece traficul
+ip route show
+
+# Testează conexiunea la un server prin ping
+ping google.com
+
+# 🔎 Listare conexiuni active și firewall
+
+# Afișează porturile deschise și procesele care le folosesc
+netstat -tulnp
+
+# Alternativ la netstat, afișează socket-urile active și porturile
+ss -tulnp
+
+# Afișează regulile firewall-ului (iptables)
+sudo iptables -L -v -n
+
+# ⚙️ Gestionare interfețe de rețea
+
+# Activează o interfață de rețea (înlocuiește 'eth0' cu interfața dorită)
+sudo ip link set eth0 up
+
+# Dezactivează o interfață de rețea
+sudo ip link set eth0 down
+
+# Setează manual o adresă IP pentru interfața specificată
+sudo ip addr add 192.168.1.100/24 dev eth0
+
+# Setează un gateway implicit
+sudo ip route add default via 192.168.1.1
+
+# 🛠 Diagnosticare și depanare
+
+# Afișează traseul unui pachet până la destinație
+traceroute google.com
+
+# Captură de pachete pe o interfață (necesită tcpdump instalat)
+sudo tcpdump -i eth0 -n
+
+# Verifică rezolvarea DNS a unui domeniu
+nslookup google.com
+
+# Alternativ la nslookup, afișează informații detaliate despre un domeniu
+dig google.com
+
+# 🌐 Configurare DNS
+
+# Editează manual serverele DNS folosite (ex: 8.8.8.8 - Google DNS)
+sudo cat /etc/resolv.conf
+
+# 🛜 Setare Proxy (pentru sesiunea curentă)
+
+# Setează un proxy HTTP
+export http_proxy="http://proxy.example.com:8080"
+
+# Setează un proxy HTTPS
+export https_proxy="http://proxy.example.com:8080"
+
+
+#############################################
+
+Windows: 
+
+Actualizare pachete și instrumente
+powershell
+Copiază
+Editează
+# 📦 Instalare unelte de rețea esențiale (necesită administrator)
+winget install -e --id WiresharkFoundation.Wireshark  # Analiză trafic de rețea
+winget install -e --id Nmap.Nmap                      # Scanare porturi și rețea
+winget install -e --id PuTTY.PuTTY                    # SSH client
+winget install -e --id Microsoft.Powershell           # Ultima versiune de PowerShell
+
+Verificare rețea
+powershell
+Copiază
+Editează
+# Afișează toate interfețele de rețea și adresele IP
+ipconfig /all
+
+# Afișează tabela de rutare
+route print
+
+# Testează conexiunea la un server prin ping
+ping google.com
+
+
+ Listare conexiuni active și firewall
+
+ # Afișează porturile deschise și procesele care le folosesc
+netstat -ano
+
+# Afișează regulile firewall-ului Windows
+netsh advfirewall show allprofiles
+
+# Afișează conexiunile active cu PID-ul proceselor asociate
+Get-NetTCPConnection | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess
+
+ Gestionare interfețe de rețea
+
+ # Activează o interfață de rețea (înlocuiește "Ethernet" cu interfața dorită)
+Enable-NetAdapter -Name "Ethernet"
+
+# Dezactivează o interfață de rețea
+Disable-NetAdapter -Name "Ethernet"
+
+# Setează manual o adresă IP pentru interfața specificată
+New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.100 -PrefixLength 24 -DefaultGateway 192.168.1.1
+
+Diagnosticare și depanare
+
+# Afișează traseul unui pachet până la destinație
+tracert google.com
+
+# Captură de pachete de rețea (necesită administrator și Wireshark/pktmon)
+pktmon start --etw -p 0
+
+# Verifică rezolvarea DNS a unui domeniu
+nslookup google.com
+
+# Alternativ la nslookup, afișează informații detaliate despre un domeniu
+Resolve-DnsName google.com
+
+
+ Configurare DNS
+
+ # Afișează setările curente de DNS
+Get-DnsClientServerAddress
+
+# Schimbă DNS-ul la Google DNS (8.8.8.8 și 8.8.4.4)
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("8.8.8.8", "8.8.4.4")
+
+
+Administrare procese și servicii
+
+# Afișează toate procesele active
+tasklist
+
+# Oprește un proces după nume
+taskkill /IM notepad.exe /F
+
+# Oprește un proces după PID
+taskkill /PID 1234 /F
+
+# Afișează toate serviciile Windows
+sc query
+
+# Restart un serviciu Windows (ex: spooler - pentru imprimante)
+net stop spooler
+net start spooler
+

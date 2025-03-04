@@ -1,0 +1,3 @@
+[2025-03-04 12:41:55] ('127.0.0.1', 41912): vreau sa imi afisezi o ceva interesant aici
+[2025-03-04 12:42:10] ('127.0.0.1', 41912): imi adaugi si poezia urmatoare?
+[2025-03-04 12:42:16] ('127.0.0.1', 41912): exit

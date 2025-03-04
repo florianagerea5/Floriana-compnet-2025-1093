@@ -1,0 +1,49 @@
+sudo apt update
+sudo apt install netcat
+
+nc -h
+
+###################################
+TEST SERVER UDP
+(base) /compnet-2023-1093$ echo "test udp" | nc -u 127.0.0.1 12345
+TEST UDP
+
+###############################################################
+
+#Ce face exact socket.socket(AF_INET, SOCK_DGRAM)?
+
+socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+
+socket.AF_INET → Folosește IPv4 (dacă vrem IPv6, folosim AF_INET6).
+socket.SOCK_DGRAM → Folosește UDP (dacă vrem TCP, schimbăm în SOCK_STREAM).
+
+#. Cum funcționează bind() și de ce folosim ''?
+
+server.bind(('', PORT))
+
+
+server.bind(('127.0.0.1', PORT))
+
+# Cum funcționează recvfrom() și sendto()?
+
+data, address = server.recvfrom(1024)  # Primește până la 1024 bytes
+server.sendto(data.upper(), address)   # Trimite răspunsul
+
+
+recvfrom(1024) → Așteaptă un mesaj de max 1024 bytes și returnează:
+
+data (mesajul primit)
+address (adresa clientului)
+📌 sendto(data, address) → Trimite datele înapoi către același client.
+
+
+#De ce UDP este "fără conexiune"?
+
+În UDP:
+
+Nu există connect() și accept() ca în TCP.
+Serverul nu menține starea fiecărui client – răspunde pur și simplu la cereri.
+Dacă un pachet se pierde, serverul nu știe și clientul trebuie să-l retrimită.
+
+

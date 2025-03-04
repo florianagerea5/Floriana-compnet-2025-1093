@@ -1,0 +1,4 @@
+[2025-03-04 12:41:55] Trimis către 127.0.0.1:12345: vreau sa imi afisezi o ceva interesant aici
+[2025-03-04 12:41:55] Răspuns de la server: VREAU SA IMI AFISEZI O CEVA INTERESANT AICI
+[2025-03-04 12:42:10] Trimis către 127.0.0.1:12345: imi adaugi si poezia urmatoare?
+[2025-03-04 12:42:10] Răspuns de la server: IMI ADAUGI SI POEZIA URMATOARE?
